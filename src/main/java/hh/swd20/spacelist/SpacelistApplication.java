@@ -6,7 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
+import hh.swd20.spacelist.domain.APOD;
 import hh.swd20.spacelist.domain.Item;
 import hh.swd20.spacelist.domain.ItemRepository;
 
@@ -16,6 +18,10 @@ public class SpacelistApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpacelistApplication.class, args);
+		
+		RestTemplate restTemplate = new RestTemplate();
+	    APOD apod = restTemplate.getForObject("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY", APOD.class);
+	    log.info(apod.toString());
 	}
 	
 	@Bean 
@@ -31,5 +37,4 @@ public class SpacelistApplication {
 			}
 		};
 	}
-
 }

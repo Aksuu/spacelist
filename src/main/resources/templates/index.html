@@ -17,6 +17,11 @@
             <td th:text="${item.header}"></td>
             <td th:text="${item.description}"></td>
         </tr>
+        <tr th:each = "APOD : ${apods}">
+            <td th:text="${APOD.title}"></td>
+            <td th:text="${APOD.explanation}"></td>
+            <td th:text="${APOD.media_type}"></td>
+        </tr>
 
     </table>
 
