@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
  <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" /> 
+ <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>Index page</title>
 </head>
 <body>
@@ -17,13 +19,46 @@
             <td th:text="${item.header}"></td>
             <td th:text="${item.description}"></td>
         </tr>
-        <tr th:each = "APOD : ${apods}">
-            <td th:text="${APOD.title}"></td>
-            <td th:text="${APOD.explanation}"></td>
-            <td th:text="${APOD.media_type}"></td>
-        </tr>
 
     </table>
+
+    <form id="date-selection">
+  <label for="image-date">Date:</label>
+  <input type="date" id="image-date" class="form-control" />
+  <div style="clear: both; display: block; height: 10px;"></div>
+  <button type="button" class="btn btn-success" id="update">Submit</button>
+</form>
+
+<div id="nasa-apod">
+    <iframe id="apodImg" type="text/html" width="1080" height="1000" frameborder="0"></iframe>
+  <div id="apodTitle">&nbsp;</div>
+  <div id="apodDescription">&nbsp;</div>
+</div>
+
+        <script>
+
+var myApiKey = "eouaU2byphnbSBMhS5Wh8CtwEt7QoDrA67CZOYou";
+
+$(document).ready(function () {
+  $("#update").click(updateDate);
+});
+
+function updateDate(event) {
+  var date = $("#image-date").val();
+  var url = apodUrlBuild(date);
+  $.getJSON(url, function (response) {
+    $("#apodImg").attr("src", response.url);
+    $("#apodTitle").html(response.title);
+    $("#apodDescription").html(response.explanation);
+  });
+}
+
+function apodUrlBuild(date) {
+  var finalUrl = "https://api.nasa.gov/planetary/apod";
+  finalUrl += "?date=" + date + "&api_key=" + myApiKey;
+  return finalUrl;
+}
+    </script>
 
 </body>
 </html>
