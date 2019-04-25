@@ -19,45 +19,84 @@
             <td th:text="${item.header}"></td>
             <td th:text="${item.description}"></td>
         </tr>
-
     </table>
 
-    <form id="date-selection">
+    <input id="search" type="text" placeholder="Search...">
+    <button type="button" class="btn btn-success" id="searchBtn">Search</button>
+    <div id="nasa-search">
+
+<!-- <div class="row-area" th:each="Image: ${search}">
+    <iframe id="resultImg" type="text/html" width="1080" height="1000" frameborder="0"></iframe>
+</div> -->
+  <div id="resultTitle">&nbsp;</div>
+  <div id="resultDescription">&nbsp;</div>
+</div>
+
+<!-- Form for asking the APOD date -->
+<form id="date-selection">
   <label for="image-date">Date:</label>
   <input type="date" id="image-date" class="form-control" />
   <div style="clear: both; display: block; height: 10px;"></div>
   <button type="button" class="btn btn-success" id="update">Submit</button>
 </form>
 
+<!-- The div for displaying the APOD results -->
 <div id="nasa-apod">
     <iframe id="apodImg" type="text/html" width="1080" height="1000" frameborder="0"></iframe>
   <div id="apodTitle">&nbsp;</div>
   <div id="apodDescription">&nbsp;</div>
 </div>
 
-        <script>
+    <script>
+// ----------- APOD script starts --------------
 
-var myApiKey = "eouaU2byphnbSBMhS5Wh8CtwEt7QoDrA67CZOYou";
+// Set the key needed for the API here
+var apikey = "eouaU2byphnbSBMhS5Wh8CtwEt7QoDrA67CZOYou";
 
+// Set the button to trigger the updateDate function
 $(document).ready(function () {
   $("#update").click(updateDate);
 });
 
+// The function to fetch desired APOD according the date
 function updateDate(event) {
   var date = $("#image-date").val();
   var url = apodUrlBuild(date);
   $.getJSON(url, function (response) {
-    $("#apodImg").attr("src", response.url);
+    $("#apodImg").attr("src", response.hdurl);
     $("#apodTitle").html(response.title);
     $("#apodDescription").html(response.explanation);
   });
 }
 
+// Build the APOD url so that it includes the chosen date
 function apodUrlBuild(date) {
   var finalUrl = "https://api.nasa.gov/planetary/apod";
-  finalUrl += "?date=" + date + "&api_key=" + myApiKey;
+  finalUrl += "?date=" + date + "&api_key=" + apikey;
   return finalUrl;
 }
+// ------------- APOD script ends ----------------
+
+$(document).ready(function () {
+  $("#searchBtn").click(showResults);
+});
+
+function showResults(event) {
+  var inputWord = $("#search").val();
+  var url = searchUrlBuild(inputWord);
+  $.getJSON(url, function (response) {
+    $("#resultImg").attr("src", response.collection.items[0].href);
+    $("#resultTitle").html(response.collection.items[0].data[0].title);
+    $("#resultDescription").html(response.collection.items[0].data[0].description);
+  });
+}
+
+function searchUrlBuild(inputWord) {
+  var finalSearchUrl = "https://images-api.nasa.gov/search?q=";
+  finalSearchUrl += inputWord;
+  return finalSearchUrl;
+}
+
     </script>
 
 </body>

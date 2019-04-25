@@ -20,7 +20,7 @@ public class SpacelistApplication {
 		SpringApplication.run(SpacelistApplication.class, args);
 		
 		RestTemplate restTemplate = new RestTemplate();
-	    APOD apod = restTemplate.getForObject("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY", APOD.class);
+	    APOD apod = restTemplate.getForObject("https://api.nasa.gov/planetary/apod?api_key=eouaU2byphnbSBMhS5Wh8CtwEt7QoDrA67CZOYou", APOD.class);
 	    log.info(apod.toString());
 	}
 	
