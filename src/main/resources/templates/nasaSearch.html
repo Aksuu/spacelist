@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+ <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" /> 
+ <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<title>Index page</title>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search...">
+      <a href="#" class="btn btn-outline-primary" id="searchBtn">Search</a>
+    </form>
+
+   <!--  <input id="search" type="text" placeholder="Search..."> -->
+<!--     <button type="button" class="btn btn-primary" id="searchBtn">Search</button>
+    <div id="nasa-search"> -->
+
+
+<iframe id="resultImg0" type="text/html" width="1080" height="300" frameborder="0"></iframe>
+<div id="resultTitle0" style="font-weight: bold;">&nbsp;</div>
+  <div id="resultDescription0">&nbsp;</div>
+  
+
+<iframe id="resultImg1" type="text/html" width="1080" height="300" frameborder="0"></iframe>
+  <div id="resultTitle1" style="font-weight: bold;">&nbsp;</div>
+  <div id="resultDescription1">&nbsp;</div>
+  
+
+<iframe id="resultImg2" type="text/html" width="1080" height="300" frameborder="0"></iframe>
+  <div id="resultTitle2" style="font-weight: bold;">&nbsp;</div>
+  <div id="resultDescription2">&nbsp;</div>
+  
+
+<iframe id="resultImg3" type="text/html" width="1080" height="300" frameborder="0"></iframe>
+  <div id="resultTitle3" style="font-weight: bold;">&nbsp;</div>
+  <div id="resultDescription3">&nbsp;</div>
+  
+
+<iframe id="resultImg4" type="text/html" width="1080" height="300" frameborder="0"></iframe>
+  <div id="resultTitle4" style="font-weight: bold;">&nbsp;</div>
+  <div id="resultDescription4">&nbsp;</div>
+  
+
+<iframe id="resultImg5" type="text/html" width="1080" height="300" frameborder="0"></iframe>
+  <div id="resultTitle5" style="font-weight: bold;">&nbsp;</div>
+  <div id="resultDescription5">&nbsp;</div>
+        
+          <div id="display-resources"></div>
+          
+<script>
+$(document).ready(function () {
+	  $("#searchBtn").click(showResults);
+	});
+
+	function showResults(event) {
+		
+	  var inputWord = $("#search").val();
+	  var url = searchUrlBuild(inputWord);
+	  var result = '';
+	  
+	   $.getJSON(url, function (response) {
+		  $.each(response.collection, function(i, collection){
+	     $("#resultImg0").attr("src", response.collection.items[0].links[0].href);
+	    $("#resultTitle0").html(response.collection.items[0].data[0].title);
+	    $("#resultDescription0").html(response.collection.items[0].data[0].description); 
+	    
+	    $("#resultImg1").attr("src", response.collection.items[1].links[0].href);
+	    $("#resultTitle1").html(response.collection.items[1].data[0].title);
+	    $("#resultDescription1").html(response.collection.items[1].data[0].description); 
+	    
+	    $("#resultImg2").attr("src", response.collection.items[2].links[0].href);
+	    $("#resultTitle2").html(response.collection.items[2].data[0].title);
+	    $("#resultDescription2").html(response.collection.items[2].data[0].description); 
+	    
+	    $("#resultImg3").attr("src", response.collection.items[3].links[0].href);
+	    $("#resultTitle3").html(response.collection.items[3].data[0].title);
+	    $("#resultDescription3").html(response.collection.items[3].data[0].description); 
+	    
+	    $("#resultImg4").attr("src", response.collection.items[4].links[0].href);
+	    $("#resultTitle4").html(response.collection.items[4].data[0].title);
+	    $("#resultDescription4").html(response.collection.items[4].data[0].description); 
+	    
+	    $("#resultImg5").attr("src", response.collection.items[5].links[0].href);
+	    $("#resultTitle5").html(response.collection.items[5].data[0].title);
+	    $("#resultDescription5").html(response.collection.items[5].data[0].description); 
+	    
+	    
+	    
+	     content += '<p>' + response.collection.items[2].href + '</p>'; 
+	  
+	/*     window.top += $("#resultTitle").html(collection.items.title);
+	    window.top += $("#resultDescription").html(collection.items.data.description);
+	    window.top += '<br/>';
+	    $(window.top).appendTo("#searchResults"); */
+	  });
+	  });
+	  
+	} 
+
+	/* $("#searchBtn").click(function() {
+	    var displayResources = $("#display-resources");
+
+	    displayResources.text("Loading...");
+
+	    var inputWord = $("#search").val();
+	    var url = searchUrlBuild(inputWord);
+	    
+	    $.ajax({
+	      type: "GET",
+	      url: url,
+	      success: function(result) {
+	        console.log(result);
+	        var output =
+	          "<table><thead><tr><th>Title</th><th>Description</th></thead><tbody>";
+	          $.each(result.collection.items.data, function(i, result) {
+	         for (var i in result.collection.items.data) { 
+	          output +=
+	            "<tr><td>" +
+	            result.collection.items[i].data[i].title +
+	            "</td><td>" +
+	            result.collection.items[i].data[i].description +
+	            "</td></tr>";
+	        }
+	        output += "</tbody></table>";
+
+	        displayResources.html(output);
+	        $("table").addClass("table");
+	      }
+	    });
+	  });
+	    
+	)}; */
+
+	function searchUrlBuild(inputWord) {
+	  var finalSearchUrl = "https://images-api.nasa.gov/search?q=";
+	  finalSearchUrl += inputWord;
+	  return finalSearchUrl;
+	}
+</script>
+
+</body>
+</html>

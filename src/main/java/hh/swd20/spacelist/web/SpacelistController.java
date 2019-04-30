@@ -23,4 +23,9 @@ public class SpacelistController {
 		return "index";
 	}
 	
+	@GetMapping("/search")
+	public String index() {
+	return "nasaSearch";
+	}
+	
 }
