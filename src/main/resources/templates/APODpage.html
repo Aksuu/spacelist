@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+ <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" /> 
+ <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<title>Item page</title>
+</head>
+<body>
+
+<!-- Navbar begins -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand">Spacelist</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="http://localhost:8080/index">List <span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="http://localhost:8080/search">Search NASA images<span class="sr-only"></span></a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+<!-- Navbar ends -->
+
+<!-- Form for asking the APOD date -->
+<form id="date-selection">
+  <label for="image-date">Date:</label>
+  <input type="date" id="image-date" class="form-control" />
+  <div style="clear: both; display: block; height: 10px;"></div>
+  <button type="button" class="btn btn-success" id="update">Submit</button>
+</form>
+
+<!-- The div for displaying the APOD results -->
+<div id="nasa-apod">
+<iframe id="apodImg" type="text/html" width="2000" height="1500" frameborder="0"></iframe>
+  <div id="apodTitle" style="font-weight: bold;">&nbsp;</div>
+  <div id="apodDescription">&nbsp;</div>
+</div>
+
+    <script>
+// ----------- APOD script starts --------------
+
+// Set the key needed for the API here
+var apikey = "eouaU2byphnbSBMhS5Wh8CtwEt7QoDrA67CZOYou";
+
+// Set the button to trigger the updateDate function
+$(document).ready(function () {
+  $("#update").click(updateDate);
+});
+
+// The function to fetch desired APOD according the date
+function updateDate(event) {
+  var date = $("#image-date").val();
+  var url = apodUrlBuild(date);
+  $.getJSON(url, function (response) {
+    $("#apodImg").attr("src", response.hdurl);
+    $("#apodTitle").html(response.title);
+    $("#apodDescription").html(response.explanation);
+  });
+}
+
+// Build the APOD url so that it includes the chosen date
+function apodUrlBuild(date) {
+  var finalUrl = "https://api.nasa.gov/planetary/apod";
+  finalUrl += "?date=" + date + "&api_key=" + apikey;
+  return finalUrl;
+}
+// ------------- APOD script ends ----------------
+
+    </script>
+
+</body>
+</html>

@@ -24,8 +24,13 @@ public class SpacelistController {
 	}
 	
 	@GetMapping("/search")
-	public String index() {
+	public String search() {
 	return "nasaSearch";
+	}
+	
+	@GetMapping("/APOD")
+	public String apod() {
+	return "APODpage";
 	}
 	
 }

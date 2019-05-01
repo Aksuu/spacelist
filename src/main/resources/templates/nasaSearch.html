@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
  <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" /> 
  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<title>Index page</title>
+<title>Search NASA picture's</title>
 </head>
 <body>
 
-
+<!-- Navbar begins -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <a class="navbar-brand">Spacelist</a>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+        <a class="nav-link" href="http://localhost:8080/index">List <span class="sr-only"></span></a>
+      </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="http://localhost:8080/APOD">NASA APOD <span class="sr-only"></span></a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -28,6 +28,7 @@
     </form>
   </div>
 </nav>
+<!-- Navbar ends -->
 
 <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search...">
