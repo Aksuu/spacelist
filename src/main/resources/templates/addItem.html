@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> 
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<title>Add item page</title>
+</head>
+<body>
+	<h1>Add a new item</h1>
+	<div class="col-md-8 order-md-1" >
+	<form th:object="${item}" th:action="@{save}" action="#" method="post">
+	
+		<label for="title">Title</label>
+		<input type="text" id="apodTitle" class="form-control" th:field="*{header}"/>
+		<div style="clear: both; display: block; height: 10px;"></div>
+		
+		<label for="author">Description</label>
+		<input type="text" id="apodDescription" class="form-control" th:field="*{description}" />
+		<div style="clear: both; display: block; height: 10px;"></div>
+
+<!-- 		<label for="categlist">Category</label>
+			 <select id="categlist" th:field="*{category}" class="form-control">
+       			<option th:each="category: ${categories}" th:value="${category.categoryid}" th:text="${category.name}"></option>
+    		</select> -->
+		
+		<input type="submit" value="Add" class="btn btn-success" />
+	
+	</form>
+	</div>
+
+</body>
+</html>

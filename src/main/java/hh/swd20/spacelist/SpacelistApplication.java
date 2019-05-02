@@ -30,6 +30,8 @@ public class SpacelistApplication {
 			log.info("Some items");
 			
 			itemrepository.save(new Item("First header", "First Description"));
+			itemrepository.save(new Item("Second header", "Second Description"));
+			itemrepository.save(new Item("Third header", "Third Description"));
 			
 			log.info("Fetch all items");
 			for (Item item : itemrepository.findAll()) {

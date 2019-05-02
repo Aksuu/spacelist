@@ -4,8 +4,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
  <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" /> 
- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<title>Item page</title>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> 
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<title>Astronomy Picture Of the Day</title>
 </head>
 <body>
 
@@ -43,6 +45,51 @@
 <iframe id="apodImg" type="text/html" width="2000" height="1500" frameborder="0"></iframe>
   <div id="apodTitle" style="font-weight: bold;">&nbsp;</div>
   <div id="apodDescription">&nbsp;</div>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addApod">Add item</button>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="addApod">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add new item to list</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+      <div class="col-md-8 order-md-1" >
+        	<form th:object="${item}" th:action="@{save}" action="#" method="post">
+	
+		<label for="title">Title</label>
+		<input type="text" id="addApodTitle" class="form-control" th:field="*{header}"/>
+		<div style="clear: both; display: block; height: 10px;"></div>
+		
+		<label for="author">Description</label>
+		<input type="text" id="addApodDescription" class="form-control" th:field="*{description}" />
+		<div style="clear: both; display: block; height: 10px;"></div>
+
+<!-- 		<label for="categlist">Category</label>
+			 <select id="categlist" th:field="*{category}" class="form-control">
+       			<option th:each="category: ${categories}" th:value="${category.categoryid}" th:text="${category.name}"></option>
+    		</select> -->
+		
+		<input type="submit" value="Add" class="btn btn-success" />
+	
+	</form>
+	</div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
 </div>
 
     <script>
@@ -74,6 +121,8 @@ function apodUrlBuild(date) {
   return finalUrl;
 }
 // ------------- APOD script ends ----------------
+
+
 
     </script>
 
