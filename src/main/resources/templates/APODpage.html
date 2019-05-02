@@ -68,7 +68,7 @@
 		<input type="text" id="addApodTitle" class="form-control" th:field="*{header}"/>
 		<div style="clear: both; display: block; height: 10px;"></div>
 		
-		<label for="author">Description</label>
+		<label for="description">Description</label>
 		<input type="text" id="addApodDescription" class="form-control" th:field="*{description}" />
 		<div style="clear: both; display: block; height: 10px;"></div>
 
@@ -122,6 +122,10 @@ function apodUrlBuild(date) {
 }
 // ------------- APOD script ends ----------------
 
+$("#addApod").click(function () {
+	var addApodTitle =  $("#addApodTitle").append($("#apodTitle").value());
+	return this.addApodTitle;
+});
 
 
     </script>

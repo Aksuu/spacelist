@@ -23,7 +23,8 @@ public class SpacelistController {
 	@GetMapping("/index")
 	public String index(Model model) {
 		model.addAttribute("items", itemRepository.findAll());
-		model.addAttribute("apods", apodRepository.findAll());
+//		model.addAttribute("item", new Item());
+//		model.addAttribute("categories", itemRepository.findAll());
 		return "index";
 	}
 	
